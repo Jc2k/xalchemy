@@ -11,3 +11,11 @@ class TestAst(TestCase):
 
     def test_element(self):
         self.assertEquals(Element("some:ele").get_string(), "some:ele")
+
+    def test_element_access(self):
+        ea = ElementAccess("text", Context())
+        self.assertEquals(ea.get_string(), "./text()")
+
+    def test_let(self):
+        l = Let(Variable("foo"), ElementAccess("text", Context()))
+        self.assertEquals(l.get_string(), "let $foo := ./text()")

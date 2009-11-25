@@ -7,7 +7,7 @@ class TestAst(TestCase):
         self.assertEquals(Variable("foo").get_string(), "$foo")
 
     def test_context(self):
-        self.assertEquals(Context(), ".")
+        self.assertEquals(Context().get_string(), ".")
 
     def test_element(self):
         self.assertEquals(Element("some:ele").get_string(), "some:ele")

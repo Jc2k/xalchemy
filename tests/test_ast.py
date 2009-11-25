@@ -26,3 +26,7 @@ class TestAst(TestCase):
         self.assertEquals(f.get_string(),
             "for $foo in ./children() return $foo")
 
+    def test_xml_node(self):
+        n = XmlNode("exo:badger")
+        self.assertEquals(n.get_string(), "<exo:badger />")
+

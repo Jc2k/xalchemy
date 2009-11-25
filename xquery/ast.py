@@ -76,3 +76,23 @@ class For(Expression):
             " return " + self.ret.get_string()
 
 
+class XmlNode(Expression):
+    """ An xml tag """
+    __slots__ = ("tag", "attrs", "contents")
+
+    def __init__(self, tag):
+        self.tag = tag
+        self.attrs = {}
+        self.contents = []
+
+    def get_string(self):
+        attrs = " ".join(x.get_string() for x in self.attrs.iteritems())
+        if not self.contents:
+            if not attrs:
+                return "<%s />" % self.tag
+            return "<%s %s/>" % (self.tag, attrs)
+        contents = "".join(x.get_string() for x in self.contents)
+        if not attrs:
+            return "<%s>%s</s>" % (self.tag, contents, self.tag)
+        return "<%s %s>%s</%s>" % (self.tag, attrs, contents, self.tag)
+

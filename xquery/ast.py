@@ -6,6 +6,10 @@ class Expression(Node):
     __slots__ = ()
 
 
+class Statement(Node):
+    __slots__ = ()
+
+
 class Variable(Expression):
     __slots__ = ("name", )
 
@@ -46,6 +50,16 @@ class ElementAccess(Expression):
     def get_string(self):
         return self.parent.get_string() + "/" + self.accessor + "()"
 
+class Let(Statement):
+    """let $thing := somexpr"""
+    __slots__ = ("var", "expression")
+
+    def __init__(self, var, expression):
+        self.var = var
+        self.expression = expression
+
+    def get_string(self):
+        return "let %s := %s" % (self.var.get_string(), self.expression.get_string())
 
 class For(Expression):
     """ for $foo in ./exo:blah return $foo """

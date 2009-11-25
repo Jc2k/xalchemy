@@ -76,6 +76,17 @@ class For(Expression):
             " return " + self.ret.get_string()
 
 
+class Fragment(Expression):
+    """ A block of xquery with some xml nodes """
+    __slots__ = ("expression")
+
+    def __init__(self, expression):
+        self.expression = expression
+
+    def get_string(self):
+        return "{" + self.expression.get_string() + "}"
+
+
 class String(Expression):
     """ A chunk of string in XML """
     __slots__ = ("value",)
@@ -98,6 +109,7 @@ class XmlNode(Expression):
         self.contents.append(node)
 
     def get_string(self):
+        #FIXME: Too many code paths. do not want.
         attrs = " ".join(x.get_string() for x in self.attrs.iteritems())
         if not self.contents:
             if not attrs:

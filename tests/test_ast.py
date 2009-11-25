@@ -22,7 +22,7 @@ class TestAst(TestCase):
 
     def test_for(self):
         foo = Variable("foo")
-        f = For(foo, ElementAccess("children", Context()), foo)
+        f = FLOWR(foo, ElementAccess("children", Context()), foo)
         self.assertEquals(f.get_string(),
             "for $foo in ./children() return $foo")
 

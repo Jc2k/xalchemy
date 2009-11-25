@@ -61,7 +61,7 @@ class Let(Statement):
     def get_string(self):
         return "let %s := %s" % (self.var.get_string(), self.expression.get_string())
 
-class For(Expression):
+class FLOWR(Expression):
     """ for $foo in ./exo:blah return $foo """
     __slots__ = ("var", "select", "ret")
 

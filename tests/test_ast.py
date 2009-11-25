@@ -34,3 +34,9 @@ class TestAst(TestCase):
         n = XmlElement("exo:badger")
         n.add(XmlString("abc"))
         self.assertEquals(n.get_string(), "<exo:badger>abc</exo:badger>")
+
+    def test_fragment(self):
+        e = ElementAccess("text", Context())
+        x = XmlElement("exo:badger")
+        x.add(XmlQueryFragment(e))
+        self.assertEquals(x.get_string(), "<exo:badger>{./text()}</exo:badger>")

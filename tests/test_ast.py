@@ -27,10 +27,10 @@ class TestAst(TestCase):
             "for $foo in ./children() return $foo")
 
     def test_xml_node(self):
-        n = XmlNode("exo:badger")
+        n = XmlElement("exo:badger")
         self.assertEquals(n.get_string(), "<exo:badger />")
 
     def test_xml_with_text(self):
-        n = XmlNode("exo:badger")
-        n.add(String("abc"))
+        n = XmlElement("exo:badger")
+        n.add(XmlString("abc"))
         self.assertEquals(n.get_string(), "<exo:badger>abc</exo:badger>")

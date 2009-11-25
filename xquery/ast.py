@@ -76,7 +76,11 @@ class For(Expression):
             " return " + self.ret.get_string()
 
 
-class Fragment(Expression):
+class XmlNode(Expression):
+    __slots__ = ()
+
+
+class XmlQueryFragment(XmlNode):
     """ A block of xquery with some xml nodes """
     __slots__ = ("expression")
 
@@ -87,7 +91,7 @@ class Fragment(Expression):
         return "{" + self.expression.get_string() + "}"
 
 
-class String(Expression):
+class XmlString(XmlNode):
     """ A chunk of string in XML """
     __slots__ = ("value",)
     def __init__(self, value):
@@ -96,7 +100,7 @@ class String(Expression):
     def get_string(self):
         return self.value
 
-class XmlNode(Expression):
+class XmlElement(Expression):
     """ An xml tag """
     __slots__ = ("tag", "attrs", "contents")
 

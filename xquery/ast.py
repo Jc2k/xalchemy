@@ -76,5 +76,3 @@ class For(Expression):
             " return " + self.ret.get_string()
 
 
-if __name__ == "__main__":
-    print ElementAccess("text", Element("exo:foobar", Element("exo:document", Context()))).get_string()

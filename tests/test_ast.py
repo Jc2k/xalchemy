@@ -19,3 +19,10 @@ class TestAst(TestCase):
     def test_let(self):
         l = Let(Variable("foo"), ElementAccess("text", Context()))
         self.assertEquals(l.get_string(), "let $foo := ./text()")
+
+    def test_for(self):
+        foo = Variable("foo")
+        f = For(foo, ElementAccess("children", Context()), foo)
+        self.assertEquals(f.get_string(),
+            "for $foo in ./children() return $foo")
+

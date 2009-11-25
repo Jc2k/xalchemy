@@ -30,3 +30,7 @@ class TestAst(TestCase):
         n = XmlNode("exo:badger")
         self.assertEquals(n.get_string(), "<exo:badger />")
 
+    def test_xml_with_text(self):
+        n = XmlNode("exo:badger")
+        n.add(String("abc"))
+        self.assertEquals(n.get_string(), "<exo:badger>abc</exo:badger>")

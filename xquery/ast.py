@@ -1,5 +1,9 @@
 class Node(object):
     __slots__ = ()
+    def get_string(self):
+        return ""
+    def validate(self):
+        return True
 
 
 class Expression(Node):
@@ -67,6 +71,7 @@ class ElementAccess(Expression):
     def get_string(self):
         return self.parent.get_string() + "/" + self.accessor + "()"
 
+
 class Let(Statement):
     """let $thing := somexpr"""
     __slots__ = ("var", "expression")
@@ -77,6 +82,7 @@ class Let(Statement):
 
     def get_string(self):
         return "let %s := %s" % (self.var.get_string(), self.expression.get_string())
+
 
 class FLOWR(Expression):
     """ for $foo in ./exo:blah return $foo """
@@ -116,6 +122,7 @@ class XmlString(XmlNode):
 
     def get_string(self):
         return self.value
+
 
 class XmlElement(Expression):
     """ An xml tag """

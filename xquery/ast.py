@@ -18,6 +18,8 @@ class Variable(Expression):
     __slots__ = ("name", )
 
     def __init__(self, name):
+        if not isinstance(name, basestring):
+            raise ValueError("Variable name must be a string")
         self.name = name
 
     def get_string(self):
@@ -51,6 +53,10 @@ class Element(Expression):
     __slots__ = ("tag", "parent")
 
     def __init__(self, tag, parent=None):
+        if not isinstance(tag, basestring):
+            raise ValueError("Tagname for an element must be a string")
+        if parent and not isinstance(parent, Expression):
+            raise ValueError("Parent of an element must be an expression")
         self.tag = tag
         self.parent = parent
 
@@ -65,6 +71,10 @@ class ElementAccess(Expression):
     __slots__ = ("accessor", "parent")
 
     def __init__(self, accessor, parent):
+        if not isinstance(accessor, basestring):
+            raise ValueError("ElementAccess must be passed a string")
+        if not isinstance(parent, Expression):
+            raise ValueError("ElementAccess can only access parents that are Expressions")
         self.accessor = accessor
         self.parent = parent
 
@@ -77,6 +87,10 @@ class Let(Statement):
     __slots__ = ("var", "expression")
 
     def __init__(self, var, expression):
+        if not isinstance(var, Variable):
+            raise ValueError("Can only assign to variables")
+        if not isinstance(expression, Expression):
+            raise ValueError("Can only assign expressions to variables")
         self.var = var
         self.expression = expression
 
@@ -118,6 +132,8 @@ class XmlQueryFragment(XmlNode):
     __slots__ = ("expression")
 
     def __init__(self, expression):
+        if not isinstance(expression, Expression):
+            raise ValueError("QueryFragment can only contain expressions")
         self.expression = expression
 
     def get_string(self):
@@ -139,11 +155,15 @@ class XmlElement(Expression):
     __slots__ = ("tag", "attrs", "contents")
 
     def __init__(self, tag):
+        if not isinstance(tag, basestring):
+            raise ValueError("Tagname of XmlElement must be a string")
         self.tag = tag
         self.attrs = {}
         self.contents = []
 
     def add(self, node):
+        if not isinstance(node, XmlNode):
+            raise ValueError("An XmlElement can only contain XmlNodes")
         self.contents.append(node)
 
     def get_string(self):

@@ -26,6 +26,14 @@ class TestAst(TestCase):
         self.assertEquals(f.get_string(),
             "for $foo in ./children() return $foo")
 
+    def test_for_with_let(self):
+        foo = Variable("a")
+        bar = Variable("b")
+        f = FLOWR(foo, ElementAccess("children", Context()), bar)
+        f.add_let(Let(bar, ElementAccess("text", foo)))
+        self.assertEquals(f.get_string(),
+            "for $a in ./children() let $b := $a/text() return $b")
+
     def test_xml_node(self):
         n = XmlElement("exo:badger")
         self.assertEquals(n.get_string(), "<exo:badger />")

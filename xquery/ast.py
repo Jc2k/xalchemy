@@ -27,7 +27,7 @@ class Constant(Expression):
         self.value = value
 
     def get_string(self):
-        if isinstance(self.value, int) or isinstance(self.value, long) or instance(self.value, float):
+        if isinstance(self.value, int) or isinstance(self.value, long) or isinstance(self.value, float):
             return str(self.value)
         elif isinstance(self.value, basestring):
             return "\"" + self.value + "\""

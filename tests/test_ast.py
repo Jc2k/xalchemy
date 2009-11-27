@@ -40,3 +40,13 @@ class TestAst(TestCase):
         x = XmlElement("exo:badger")
         x.add(XmlQueryFragment(e))
         self.assertEquals(x.get_string(), "<exo:badger>{./text()}</exo:badger>")
+
+    def test_constant_number(self):
+        self.assertEquals(Constant(7.0).get_string(), "7.0")
+        self.assertEquals(Constant(7.01).get_string(), "7.01")
+        self.assertEquals(Constant(7).get_string(), "7")
+
+    def test_constant_string(self):
+        self.assertEquals(Constant("1").get_string(), "\"1\"")
+        self.assertEquals(Constant("abc").get_string(), "\"abc\"")
+

@@ -19,6 +19,23 @@ class Variable(Expression):
     def get_string(self):
         return "$" + self.name
 
+
+class Constant(Expression):
+    __slots__ = ("value", )
+
+    def __init__(self, value):
+        self.value = value
+
+    def get_string(self):
+        if isinstance(self.value, int) or isinstance(self.value, long) or instance(self.value, float):
+            return str(self.value)
+        elif isinstance(self.value, basestring):
+            return "\"" + self.value + "\""
+        #elif isinstance(self.value, datetime.datetime):
+        #    return "date in xquery format"
+        return self.value
+
+
 class Context(Expression):
     __slots__ = ()
 

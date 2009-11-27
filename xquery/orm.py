@@ -23,7 +23,7 @@ class Document(object):
         pass
 
     @classmethod
-    def find(self, *args):
+    def find(cls, *args):
         v = Variable("retval")
         f = FLOWR(v, Context(), v)
         return Query(cls, f)

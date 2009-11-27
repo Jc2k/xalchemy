@@ -86,12 +86,20 @@ class Let(Statement):
 
 class FLOWR(Expression):
     """ for $foo in ./exo:blah return $foo """
-    __slots__ = ("var", "select", "ret")
+    __slots__ = ("var", "select", "lets", "order", "where", "ret")
 
     def __init__(self, var, select, ret):
         self.var = var
         self.select = select
+        self.lets = []
+        self.order = []
+        self.where = None
         self.ret = ret
+
+    def add_let(self, let):
+        if not isinstance(let, Let):
+            raise ValueError("Can only add Let statements to a FLOWR with add_let method")
+        self.lets.append(let)
 
     def get_string(self):
         return "for " + self.var.get_string() + \

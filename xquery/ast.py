@@ -102,9 +102,11 @@ class FLOWR(Expression):
         self.lets.append(let)
 
     def get_string(self):
-        return "for " + self.var.get_string() + \
-            " in " + self.select.get_string() + \
-            " return " + self.ret.get_string()
+        flowr = "for " + self.var.get_string() + " in " + self.select.get_string() + " "
+        if self.lets:
+            flowr += " ".join(x.get_string() for x in self.lets) + " "
+        flowr += "return " + self.ret.get_string()
+        return flowr
 
 
 class XmlNode(Expression):
